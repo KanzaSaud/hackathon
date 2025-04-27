@@ -42,8 +42,40 @@
   </div>
   <div id="add-task">Add Task</div>
   <div id="task-breakdown">Tasks Breakdown</div>
-
+  <div id="auth-container">
+    <!-- Sign Up Form -->
+    <div id="signup-form">
+      <h2>Sign Up</h2>
+      <input type="email" id="signup-email" placeholder="Email" required>
+      <input type="password" id="signup-password" placeholder="Password" required>
+      <button onclick="signUp()">Sign Up</button>
+    </div>
   
-  <script src="script.js"></script>
+    <!-- Login Form -->
+    <div id="login-form">
+      <h2>Login</h2>
+      <input type="email" id="login-email" placeholder="Email" required>
+      <input type="password" id="login-password" placeholder="Password" required>
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+  
+  <!-- Firebase SDK
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js"></script> -->
+<!-- <script>
+  // Initialize Firebase with your Firebase config object
+  const firebaseConfig = {
+    apiKey: "AIzaSyBfZ_EwYERwTKEb1rLjd-Yf-uFpo0qcrQM",
+  authDomain: "hackathon-smit-2025.firebaseapp.com",
+  projectId: "hackathon-smit-2025",
+  storageBucket: "hackathon-smit-2025.firebasestorage.app",
+  messagingSenderId: "825161284184",
+  appId: "1:825161284184:web:148c9d7e86825d6898282d"
+  };
+  const app = firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  </script> -->
+  <script type="module" src="script.js"></script>
 </body>
 </html>

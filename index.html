@@ -33,6 +33,7 @@
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
 
   <script>
     // Your Firebase config
@@ -40,13 +41,14 @@
         apiKey: "AIzaSyBfZ_EwYERwTKEb1rLjd-Yf-uFpo0qcrQM",
         authDomain: "hackathon-smit-2025.firebaseapp.com",
         projectId: "hackathon-smit-2025",
-        storageBucket: "hackathon-smit-2025.firebasestorage.app",
+        storageBucket: "hackathon-smit-2025.appspot.app",
         messagingSenderId: "825161284184",
         appId: "1:825161284184:web:148c9d7e86825d6898282d"
     };
     firebase.initializeApp(firebaseConfig);
 
     const auth = firebase.auth();
+
 
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
@@ -76,17 +78,27 @@
     });
 
     signupForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const email = document.getElementById('signupEmail').value;
-      const password = document.getElementById('signupPassword').value;
-      auth.createUserWithEmailAndPassword(email, password)
-        .then(() => {
-          window.location.href = "dashboard.html";
-        })
-        .catch((error) => {
-          alert(error.message);
+            e.preventDefault();
+            const name = document.getElementById('signupName').value;
+            const email = document.getElementById('signupEmail').value;
+            const password = document.getElementById('signupPassword').value;
+            auth.createUserWithEmailAndPassword(email, password)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+
+                    // Save user info to Firestore 🔥
+                    firebase.firestore().collection('users').doc(user.uid).set({
+                        name: name,
+                        email: email,
+                        createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+
+                    window.location.href = "dashboard.html";
+                })
+                .catch((error) => {
+                    alert(error.message);
+                });
         });
-    });
   </script>
 </body>
 </html>

@@ -18,6 +18,10 @@
             </nav>
         </aside>
 
+        <!-- <header></header> -->
+        <!-- <h2 id="welcomeMessage">Loading user info...</h2> -->
+        
+
         <main class="main-content">
             <header class="header">
                 <div class="today-card animate">
@@ -75,6 +79,7 @@
 <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-firestore-compat.js"></script>
 
 <script>
   const firebaseConfig = {
@@ -87,10 +92,28 @@
   };
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
+  const db = firebase.firestore();
 
   auth.onAuthStateChanged((user) => {
-    if (!user) {
-      // No user signed in, redirect to login
+    if (user) {
+      db.collection('users').doc(user.uid).get()
+        .then((doc) => {
+          if (doc.exists) {
+            const userData = doc.data();
+            console.log("User Data:", userData);
+
+            // Set welcome message
+            document.getElementById('welcomeMessage').innerText = `Welcome, ${userData.name}!`;
+
+          } else {
+            console.log("No user data found!");
+          }
+        })
+        .catch((error) => {
+          console.error("Error getting user data:", error);
+        });
+    } else {
+      // No user logged in, redirect to login
       window.location.href = "index.html";
     }
   });

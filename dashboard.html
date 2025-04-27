@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Tracker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>Task Tracker</h2>
+            <nav>
+                <a href="#">Dashboard</a>
+                <a href="#">Add Task</a>
+                <a href="#">Tasks</a>
+                <a href="#">Tracker</a>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="header">
+                <div class="today-card animate">
+                    <h3>Today</h3>
+                    <p>Priority Tasks</p>
+                </div>
+                <div class="task-card animate">
+                    <h3>Task</h3>
+                    <p>Work and Personal</p>
+                </div>
+            </header>
+
+            <section class="tasks-section animate">
+                <div class="add-task">
+                    <input type="text" placeholder="Add a new task...">
+                    <button>Add</button>
+                </div>
+
+                <div class="task-list">
+                    <div class="task-item">
+                        <h4>Task 2</h4>
+                        <p>Research project</p>
+                    </div>
+                    <div class="task-item">
+                        <h4>Mini Tasks</h4>
+                        <p>Small errands</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <aside class="right-sidebar animate">
+            <div class="calendar">
+                <h4>Today's Date</h4>
+                <div class="calendar-container" id="calendar"></div>
+            </div>
+
+            <div class="small-tasks">
+                <h4>Tasks</h4>
+                <ul>
+                    <li>Task A</li>
+                    <li>Task B</li>
+                    <li>Task C</li>
+                </ul>
+            </div>
+        </aside>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.10.0/firebase-auth-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBfZ_EwYERwTKEb1rLjd-Yf-uFpo0qcrQM",
+    authDomain: "hackathon-smit-2025.firebaseapp.com",
+    projectId: "hackathon-smit-2025",
+    storageBucket: "hackathon-smit-2025.firebasestorage.app",
+    messagingSenderId: "825161284184",
+    appId: "1:825161284184:web:148c9d7e86825d6898282d"
+  };
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+
+  auth.onAuthStateChanged((user) => {
+    if (!user) {
+      // No user signed in, redirect to login
+      window.location.href = "index.html";
+    }
+  });
+</script>

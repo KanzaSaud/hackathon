@@ -23,6 +23,11 @@ const taskDescription = document.getElementById('taskDescription');
 const taskAssignedTo = document.getElementById('taskAssignedTo');
 const taskStatus = document.getElementById('taskStatus');
 
+// Select elements
+const addTaskInput = document.querySelector('.add-task input');
+const addTaskButton = document.querySelector('.add-task button');
+const taskListquery = document.querySelector('.task-list');
+
 
 signupForm.addEventListener('submit', (e) => {
 e.preventDefault();
@@ -157,3 +162,43 @@ taskList.addEventListener('click', (e) => {
 
 // Initial load of tasks when the page is loaded
 document.addEventListener('DOMContentLoaded', loadTasks);
+
+
+// Handle Add Button click
+addTaskButton.addEventListener('click', () => {
+  const title = addTaskInput.value.trim();
+  if (title === "") {
+      alert("Please enter a task title.");
+      return;
+  }
+
+  // Create new task object
+  const newTask = {
+      title: title,
+      description: "", // empty for now
+      assignedTo: "", // empty for now
+      status: "To Do", // default status
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+  };
+
+  // Save to Firestore
+  db.collection('tasks').add(newTask)
+      .then((docRef) => {
+          console.log("Task added with ID: ", docRef.id);
+
+          // Add task to UI immediately
+          const taskItem = document.createElement('div');
+          taskItem.classList.add('task-item');
+          taskItem.innerHTML = `
+              <h4>${newTask.title}</h4>
+              <p>Status: ${newTask.status}</p>
+          `;
+          taskList.appendChild(taskItem);
+
+          // Clear input field
+          addTaskInput.value = "";
+      })
+      .catch((error) => {
+          console.error("Error adding task: ", error);
+      });
+});

@@ -165,3 +165,42 @@ body {
   from { opacity: 0; }
   to { opacity: 1; }
 }
+
+.task-item {
+  background: #fff;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+.task-item h4 {
+  margin-bottom: 10px;
+}
+
+.task-item p {
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 10px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background: #6c63ff;
+  color: white;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #5848e4;
+}
+
+button.deleteBtn {
+  background: #ff4747;
+}
+
+button.deleteBtn:hover {
+  background: #ff2b2b;
+}

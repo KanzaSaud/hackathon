@@ -32,15 +32,33 @@
                     <h3>Task</h3>
                     <p>Work and Personal</p>
                 </div>
-            </header>
+                </header>
+                
+                <section class="tasks-section animate">
+                    <!-- <div class="add-task">
+                                    <input type="text" placeholder="Add a new task...">
+                                    <button>Add</button>
+                                </div> -->
+                    <!-- Add Task Section -->
+                    <div class="add-task">
+                        <input type="text" id="taskTitle" placeholder="Task Title" required>
+                        <input type="text" id="taskDescription" placeholder="Task Description" required>
+                        <input type="text" id="taskAssignedTo" placeholder="Assigned To" required>
+                        <select id="taskStatus">
+                            <option value="To Do">To Do</option>
+                            <option value="In Progress">In Progress</option>
+                            <option value="Done">Done</option>
+                        </select>
+                        <button id="addTaskBtn">Add Task</button>
+                    </div>
+                
+                    <!-- Task List Section -->
+                    <div class="task-list" id="taskList">
+                        <!-- Dynamically generated tasks will appear here -->
+                    </div>
 
-            <section class="tasks-section animate">
-                <div class="add-task">
-                    <input type="text" placeholder="Add a new task...">
-                    <button>Add</button>
-                </div>
 
-                <div class="task-list">
+                <!-- <div class="task-list">
                     <div class="task-item">
                         <h4>Task 2</h4>
                         <p>Research project</p>
@@ -49,7 +67,7 @@
                         <h4>Mini Tasks</h4>
                         <p>Small errands</p>
                     </div>
-                </div>
+                </div> -->
             </section>
         </main>
 
@@ -92,11 +110,11 @@
   };
   firebase.initializeApp(firebaseConfig);
   const auth = firebase.auth();
-  const db = firebase.firestore();
+  const db2 = firebase.firestore();
 
   auth.onAuthStateChanged((user) => {
     if (user) {
-      db.collection('users').doc(user.uid).get()
+      db2.collection('users').doc(user.uid).get()
         .then((doc) => {
           if (doc.exists) {
             const userData = doc.data();
